@@ -20,13 +20,13 @@ account_id, name, point, call_count, total_call_time, total_exclusive_time, min_
 
 ### Key Metrics for Initial Analysis:
 
-# Key Metrics for Initial Analysis
+## Key Metrics for Initial Analysis
 
 This document outlines the SQL queries required to extract key metrics from the `metrics_collector` database for monitoring service performance.
 
-## Metrics
+### Metrics
 
-### 1. Web Response
+#### 1. Web Response
 **Description:** Service response time for external HTTP requests.
 
 **Query:**
@@ -46,7 +46,7 @@ GROUP BY
 ORDER BY
     time;
 ```
-### 2. Throughput
+#### 2. Throughput
 **Description:** Service throughput, measured in requests per minute.
 
 **Query:**
@@ -67,7 +67,7 @@ ORDER BY
     time;
 ```
 
-### 3. APDEX
+#### 3. APDEX
 **Description:** A synthetic health index for the service, ranging from 0 to 1. The closer to 1, the better.
 
 **Query:**
@@ -92,7 +92,7 @@ ORDER BY
     time;
 ```
 
-### 4. Error Rate
+#### 4. Error Rate
 **Description:** Percentage of errors in processed requests.
 
 **Query:**
