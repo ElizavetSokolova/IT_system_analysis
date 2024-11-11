@@ -45,5 +45,3 @@ GROUP BY
     time
 ORDER BY
     time;
-
-
