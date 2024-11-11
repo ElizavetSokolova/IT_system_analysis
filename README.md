@@ -18,6 +18,8 @@ The data is an export from Clickhouse in TSV format.
 
 account_id, name, point, call_count, total_call_time, total_exclusive_time, min_call_time, max_call_time, sum_of_squares, instances, language, app_name, app_id, scope, host, display_host, pid, agent_version, labels
 
+![TS](https://github.com/user-attachments/assets/227f5e90-0b84-4296-acef-9ac6ca3fa6bb)
+
 ## Key Metrics for Initial Analysis
 
 This document outlines the SQL queries required to extract key metrics from the `metrics_collector` database for monitoring service performance.
