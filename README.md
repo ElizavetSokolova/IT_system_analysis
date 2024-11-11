@@ -45,3 +45,74 @@ GROUP BY
     time
 ORDER BY
     time;
+```
+### 2. Throughput
+**Description:** Service throughput, measured in requests per minute.
+
+**Query:**
+```sql
+SELECT
+    point AS time,
+    SUM(NULLIF(call_count, 0)) AS throughput
+FROM
+    metrics_collector
+WHERE
+    language = 'java'
+    AND app_name = '[GMonit] Collector'
+    AND scope = ''
+    AND name = 'HttpDispatcher'
+GROUP BY
+    time
+ORDER BY
+    time;
+```
+
+### 3. APDEX
+**Description:** A synthetic health index for the service, ranging from 0 to 1. The closer to 1, the better.
+
+**Query:**
+```sql
+WITH
+    SUM(NULLIF(call_count, 0)) AS s,
+    SUM(NULLIF(total_call_time, 0)) AS t,
+    SUM(NULLIF(total_exclusive_time, 0)) AS f
+SELECT
+    point AS time,
+    (s + t / 2) / (s + t + f) AS apdex
+FROM
+    metrics_collector
+WHERE
+    language = 'java'
+    AND app_name = '[GMonit] Collector'
+    AND scope = ''
+    AND name = 'Apdex'
+GROUP BY
+    time
+ORDER BY
+    time;
+```
+
+### 4. Error Rate
+**Description:** Percentage of errors in processed requests.
+
+**Query:**
+```sql
+SELECT
+    point AS time,
+    SUM(NULLIF(call_count, 0), name = 'Errors/allWeb') / SUM(NULLIF(call_count, 0), name = 'HttpDispatcher') AS error_rate
+FROM
+    metrics_collector
+WHERE
+    language = 'java'
+    AND app_name = '[GMonit] Collector'
+    AND scope = ''
+    AND name IN ('HttpDispatcher', 'Errors/allWeb')
+GROUP BY
+    time
+ORDER BY
+    time;
+```
+
+---
+
+Each metric includes a description and its corresponding SQL query. These metrics are essential for monitoring and analyzing the performance and health of the service.
